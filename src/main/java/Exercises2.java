@@ -14,8 +14,25 @@ public class Exercises2 {
     */
 
     public int[] twoSum(int[] nums, int target) {
-        // TODO
-        return null;
+        int[] temp = new int[nums.length];
+        int counter = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    temp[counter] = i;
+                    temp[counter + 1] = j;
+                    counter += 2;
+                }
+            }
+        }
+
+        int[] ans = new int[counter];
+
+        for (int index = 0; index < counter; index++) {
+            ans[index] = temp[index];
+        }
+        return ans;
     }
 
     /*
@@ -49,8 +66,52 @@ public class Exercises2 {
     */
 
     public int romanToInt(String s) {
-        // TODO
-        return 0;
+        int ans = 0;
+        for (int i = 0; i < s.length(); i++) {
+            switch (s.charAt(i)) {
+                case 'V':
+                    ans += 5;
+                    break;
+                case 'L':
+                    ans += 50;
+                    break;
+                case 'D':
+                    ans += 500;
+                    break;
+                case 'M':
+                    ans += 1000;
+                default:
+                    break;
+            }
+        }
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(i) == 'I') {
+                if (s.charAt(i + 1) == 'V' || s.charAt(i + 1) == 'X')
+                    ans -= 1;
+                else
+                    ans += 1;
+            }
+            else if (s.charAt(i) == 'X') {
+                if (s.charAt(i + 1) == 'L' || s.charAt(i + 1) == 'C')
+                    ans -= 10;
+                else
+                    ans += 10;
+            }
+            else if (s.charAt(i) == 'C') {
+                if (s.charAt(i + 1) == 'D' || s.charAt(i + 1) == 'M')
+                    ans -= 100;
+                else
+                    ans += 100;
+            }
+        }
+        if (s.charAt(s.length() - 1) == 'I')
+            ans += 1;
+        else if (s.charAt(s.length() - 1) == 'X')
+            ans += 10;
+        else if (s.charAt(s.length() - 1) == 'C')
+            ans += 100;
+
+        return ans;
     }
 
     /*
@@ -58,9 +119,24 @@ public class Exercises2 {
     You can return the answer in any order.
     */
 
+    private void listCreator(List<List<Integer>> ans, List<Integer> temp, int[] nums) { // a Function to creat permutes and add them to answer List
+        if (temp.size() == nums.length)
+            ans.add(new ArrayList<>(temp));
+        else {
+            for (int i = 0; i < nums.length; i++) {
+                if (temp.contains(nums[i])) continue;
+                temp.add(nums[i]);
+
+                listCreator(ans, temp, nums);
+                temp.remove(temp.size() - 1);
+            }
+        }
+    }
+
     public List<List<Integer>> permute(int[] nums) {
-        // TODO
-        return null;
+        List<List<Integer>> ans = new ArrayList<>();
+        listCreator(ans, new ArrayList<>(), nums);
+        return ans;
     }
 
     public static void main(String[] args) {

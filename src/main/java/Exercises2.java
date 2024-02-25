@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Exercises2 {
 
@@ -13,9 +10,19 @@ public class Exercises2 {
     You can return the answer in any order.
     */
 
-    public int[] twoSum(int[] nums, int target) {
-        // TODO
-        return null;
+    public static int[] twoSum(int[] nums, int target) {
+        int arraySize = nums.length;
+        int[] answerArray = new int[2];
+        for (int i = 0; i < arraySize; i++) {
+            for (int j = 0; j < arraySize; j++) {
+                if (nums[i] + nums[j] == target && i != j) {
+                    answerArray[0] = j;
+                    answerArray[1] = i;
+                    break;
+                }
+            }
+        }
+        return answerArray;
     }
 
     /*
@@ -48,9 +55,64 @@ public class Exercises2 {
     Given a roman numeral, convert it to an integer.
     */
 
-    public int romanToInt(String s) {
-        // TODO
-        return 0;
+    public static int romanToInt(String s) {
+        int stringSize = s.length();
+        int sum = 0;
+
+        for (int i = 0; i < stringSize; i++) {
+            if (s.charAt(i) == 'I') {
+                if (i < stringSize - 1 && s.charAt(i + 1) == 'V') {
+                    sum = sum + 4;
+                    i++;
+                }
+                else if (i < stringSize - 1 && s.charAt(i + 1) == 'X') {
+                    sum = sum + 9;
+                    i++;
+                }
+                else {
+                    sum = sum + 1;
+                }
+            }
+            else if (s.charAt(i) == 'V') {
+                sum = sum + 5;
+            }
+            else if (s.charAt(i) == 'X') {
+                if (i < stringSize - 1 && s.charAt(i + 1) == 'L') {
+                    sum = sum + 40;
+                    i++;
+                }
+                else if (i < stringSize - 1 && s.charAt(i + 1) == 'C') {
+                    sum = sum + 90;
+                    i++;
+                }
+                else {
+                    sum = sum + 10;
+                }
+            }
+            else if (s.charAt(i) == 'L') {
+                sum = sum + 50;
+            }
+            else if (s.charAt(i) == 'C') {
+                if (i < stringSize - 1 && s.charAt(i + 1) == 'D') {
+                    sum = sum + 400;
+                    i++;
+                }
+                else if (i < stringSize - 1 && s.charAt(i + 1) == 'M') {
+                    sum = sum + 900;
+                    i++;
+                }
+                else {
+                    sum = sum + 100;
+                }
+            }
+            else if (s.charAt(i) == 'D') {
+                sum = sum + 500;
+            }
+            else if (s.charAt(i) == 'M') {
+                sum = sum + 1000;
+            }
+        }
+        return sum;
     }
 
     /*
@@ -58,12 +120,70 @@ public class Exercises2 {
     You can return the answer in any order.
     */
 
-    public List<List<Integer>> permute(int[] nums) {
-        // TODO
-        return null;
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> answer = new ArrayList<>();
+        answer.add(new ArrayList<>());
+
+        for (int num : nums)
+        {
+            List<List<Integer>> permutations = new ArrayList<>();
+
+            for (List<Integer> permutation : answer)
+            {
+                for (int i = 0; i <= permutation.size(); i++)
+                {
+                    List<Integer> newPermutation = new ArrayList<>(permutation);
+                    newPermutation.add(i, num);
+                    permutations.add(newPermutation);
+                }
+            }
+            answer = permutations;
+        }
+        return answer;
     }
 
     public static void main(String[] args) {
-        // test your code here!
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter the count of numbers:");
+        int numsCount = input.nextInt();
+        int[] nums = new int[numsCount];
+
+        System.out.println("Enter the numbers:");
+        for (int i = 0; i < numsCount; i++) {
+            nums[i] = input.nextInt();
+        }
+
+        System.out.println("Enter the target number:");
+        int target = input.nextInt();
+
+        System.out.println("The two numbers that sum up to target:");
+        int[] answerArray = twoSum(nums, target);
+        System.out.print("[" + answerArray[0] + ", " + answerArray[1] + "]");
+        System.out.println();
+        System.out.println();
+
+        System.out.println("Enter the Roman number:");
+        String romanNumber = input.next();
+
+        int integerNumber = romanToInt(romanNumber);
+        System.out.println("The integer value of Roman number:");
+        System.out.println(integerNumber);
+        System.out.println();
+
+        System.out.println("Enter the count of numbers:");
+        int numbersCount = input.nextInt();
+
+        System.out.println("Enter the numbers:");
+        int[] numbers = new int[numbersCount];
+        for (int i = 0; i < numbersCount; i++) {
+            numbers[i] = input.nextInt();
+        }
+
+        List<List<Integer>> permutations = permute(numbers);
+        System.out.println("All possible permutations:");
+        for (List<Integer> permutation : permutations) {
+            System.out.println(permutation);
+        }
     }
 }

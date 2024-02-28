@@ -1,7 +1,7 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Vector;
+import java.util.Scanner;
+import java.util.Arrays;
+
 
 public class Exercises2 {
 
@@ -48,20 +48,159 @@ public class Exercises2 {
     Given a roman numeral, convert it to an integer.
     */
 
-    public int romanToInt(String s) {
-        // TODO
-        return 0;
-    }
+
+    public class romanIntoInt {
+        public static void main(String[] args){
+            Scanner scanner = new Scanner(System.in);
+            String str = scanner.next();
+            int size = str.length();
+            char [] charArray = str.toCharArray();
+
+            int sum = 0;
+
+
+            for(int i = 0;i < size;i++){
+                if(charArray[i] == 'I')
+                {
+                    sum += 1;
+                }
+
+                if(charArray[i] == 'V')
+                {
+                    if(charArray[0] == charArray[i]){
+                        sum += 5;
+                    }
+
+                    else if(charArray[i - 1] == 'I'){
+                        sum += 3;
+                    }
+
+                    else{
+                        sum += 5;
+                    }
+                }
+
+                if(charArray[i] == 'X') {
+
+                    if(charArray[0] == charArray[i])
+                    {
+                        sum += 10;
+                    }
+
+                    else if (charArray[i - 1] == 'I') {
+                        sum += 8;
+                    }
+
+                    else
+                        sum += 10;
+                }
+                if(charArray[i] == 'L'){
+
+                    if(charArray[0] == charArray[i])
+                    {
+                        sum += 50;
+                    }
+
+                    else if(charArray[i - 1] == 'X'){
+                        sum += 30;
+                    }
+
+                    else{
+                        sum += 50;
+                    }
+                }
+
+                if(charArray[i] == 'C'){
+
+                    boolean condition;
+                    condition = true;
+
+                    if(charArray[0] == charArray[i])
+                    {
+                        sum += 100;
+                    }
+
+                    else if(charArray[i - 1] == 'X')
+                        sum += 80;
+
+                    else
+                        sum += 100;
+                }
+
+                if(charArray[i] == 'D'){
+
+                    if(charArray[0] == charArray[i])
+                    {
+                        sum += 500;
+                    }
+
+                    else if(charArray[i - 1] == 'C')
+                        sum += 300;
+
+                    else
+                        sum += 500;
+                }
+
+                if(charArray[i] == 'M'){
+                    if(charArray[0] == charArray[i])
+                    {
+                        sum += 1000;
+                    }
+                    else if(charArray[i - 1] == 'C')
+                        sum += 800;
+
+                    else
+                        sum += 1000;
+                }
+            }
+            System.out.println(sum);
+        }
+
+
 
     /*
     Given an array nums of distinct integers, return all the possible permutations.
     You can return the answer in any order.
     */
 
-    public List<List<Integer>> permute(int[] nums) {
-        // TODO
-        return null;
-    }
+        public class Permutation {
+            public static void generatePermutations(int[] arr, int start, int end) {
+                if (start == end) {
+                    System.out.println(Arrays.toString(arr));
+                    return;
+                }
+
+                for (int i = start; i <= end; ++i) {
+                    swap(arr, start, i);
+                    generatePermutations(arr, start + 1, end);
+                    swap(arr, start, i);  // Backtrack
+                }
+            }
+
+            public static void swap(int[] arr, int i, int j) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+
+                // Input array size
+                System.out.println("Enter the size of the array: ");
+                int n = scanner.nextInt();
+
+                // Input array elements
+                int[] array = new int[n];
+                System.out.println("Enter the elements of the array:");
+                for (int i = 0; i < n; i++) {
+                    array[i] = scanner.nextInt();
+                }
+
+                System.out.println("Permutations:");
+                generatePermutations(array, 0, n - 1);
+            }
+        }
 
     public static void main(String[] args) {
         // test your code here!

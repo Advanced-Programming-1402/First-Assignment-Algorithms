@@ -14,8 +14,16 @@ public class Exercises2 {
     */
 
     public int[] twoSum(int[] nums, int target) {
-        // TODO
-        return null;
+        int ans[] = new int[2];
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    ans[0] = i;
+                    ans[1] = j;
+                }
+            }
+        }
+        return ans;
     }
 
     /*
@@ -49,8 +57,24 @@ public class Exercises2 {
     */
 
     public int romanToInt(String s) {
-        // TODO
-        return 0;
+        int ans = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'I')
+                ans++;
+            else if (s.charAt(i) == 'V')
+                ans += 5;
+            else if (s.charAt(i) == 'X')
+                ans += 10;
+            else if (s.charAt(i) == 'L')
+                ans += 50;
+            else if (s.charAt(i) == 'C')
+                ans += 100;
+            else if (s.charAt(i) == 'D')
+                ans += 500;
+            else if (s.charAt(i) == 'M')
+                ans += 1000;
+        }
+        return ans;
     }
 
     /*

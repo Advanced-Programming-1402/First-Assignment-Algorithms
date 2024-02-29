@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 
 public class Main {
-
     public int[] twoSum(int[] nums, int target) {
         int ans[] = new int[2];
         for (int i = 0; i < nums.length; i++) {
@@ -16,7 +15,8 @@ public class Main {
         return ans;
     }
 
-    public static int romanToInt(String s) {
+    public int romanToInt(String s) {
+        int n = s.length();
         int ans = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == 'I')
@@ -34,26 +34,62 @@ public class Main {
             else if (s.charAt(i) == 'M')
                 ans += 1000;
         }
+        for (int i = 0; i < (n - 1); i++) {
+            if (s.charAt(i) == 'I') {
+                if (s.charAt(i + 1) == 'V' || s.charAt(i + 1) == 'X')
+                    ans -= 2;
+                if (s.charAt(i + 1) == 'L' || s.charAt(i + 1) == 'C')
+                    ans -= 2;
+                if (s.charAt(i + 1) == 'D' || s.charAt(i + 1) == 'M')
+                    ans -= 2;
+            }
+            else if (s.charAt(i) == 'V') {
+                if (s.charAt(i + 1) == 'X')
+                    ans -= 10;
+                if (s.charAt(i + 1) == 'L' || s.charAt(i + 1) == 'C')
+                    ans -= 10;
+                if (s.charAt(i + 1) == 'D' || s.charAt(i + 1) == 'M')
+                    ans -= 10;
+            }
+            else if (s.charAt(i) == 'X') {
+                if (s.charAt(i + 1) == 'L' || s.charAt(i + 1) == 'C')
+                    ans -= 20;
+                if (s.charAt(i + 1) == 'D' || s.charAt(i + 1) == 'M')
+                    ans -= 20;
+            }
+            else if (s.charAt(i) == 'L') {
+                if (s.charAt(i + 1) == 'C')
+                    ans -= 100;
+                if (s.charAt(i + 1) == 'D' || s.charAt(i + 1) == 'M')
+                    ans -= 100;
+            }
+            else if (s.charAt(i) == 'C') {
+                if (s.charAt(i + 1) == 'D' || s.charAt(i + 1) == 'M')
+                    ans -= 200;
+            }
+            else if (s.charAt(i) == 'D') {
+                if (s.charAt(i + 1) == 'M')
+                    ans -= 1000;
+            }
+        }
         return ans;
     }
 
-    public static ArrayList<ArrayList<Integer>> permute(int[] nums) {
-        ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> save = new ArrayList<Integer>();
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        List<Integer> save = new ArrayList<Integer>();
         save.add(nums[0]);
         ans.add(save);
         for (int i = 1; i < nums.length; i++) {
-            ArrayList<ArrayList<Integer>> save2 = new ArrayList<ArrayList<Integer>>();
+            List<List<Integer>> save2 = new ArrayList<List<Integer>>();
             for (int j = 0; j < ans.size(); j++) {
                 for (int k = 0; k <= i; k++) {
-                    ArrayList<Integer> save3 = new ArrayList<Integer>();
-                    save3 = (ans.get(j));
-                    ArrayList<Integer> save4 = new ArrayList<Integer>();
+                    List<Integer> save4 = new ArrayList<Integer>();
                     for (int l = 0; l < k; l++)
-                        save4.add(save3.get(l));
+                        save4.add(ans.get(j).get(l));
                     save4.add(nums[i]);
                     for (int l = k; l <= (i - 1); l++)
-                        save4.add(save3.get(l));
+                        save4.add(ans.get(j).get(l));
                     save2.add(save4);
                 }
             }
@@ -63,5 +99,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        
     }
 }

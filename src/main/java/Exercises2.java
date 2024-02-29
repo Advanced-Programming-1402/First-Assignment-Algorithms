@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exercise2 {
+public class Exercises2 {
     public int[] twoSum(int[] nums, int target) {
         int ans[] = new int[2];
         for (int i = 0; i < nums.length; i++) {
